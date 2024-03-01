@@ -3,66 +3,70 @@ document.querySelector('.reset-button').addEventListener('click', reset)
 document.querySelector('.increase-rate').addEventListener('click', () => adjustRate(1))
 document.querySelector('.decrease-rate').addEventListener('click', () => adjustRate(-1))
 
-
 function handleSubmit(e) {
-	e.preventDefault()
+    e.preventDefault()
 
+    let principal = document.querySelector('.initial-investment')
+    principal = principal.value
+    principal = parseFloat(principal)
 
-	let principal = document.querySelector('.initial-investment')
-	principal = principal.value
-	principal = parseFloat(principal)
+    let monthlyContribution = document.querySelector('.monthly-contribution')
+    monthlyContribution = monthlyContribution.value
+    monthlyContribution = parseFloat(monthlyContribution);
 
-	let monthlyContribution = document.querySelector('.monthly-contribution')
-	monthlyContribution = monthlyContribution.value
-	monthlyContribution = parseFloat(monthlyContribution)
+    let years = document.querySelector('.years')
+    years = years.value
+    years = parseFloat(years)
 
-	let years = document.querySelector('.years')
-	years = years.value
-	years = parseFloat(years)
+    let selectedCurrencyIndex = document.querySelector('#currency').selectedIndex;
+    let selectedCurreny = document.querySelector('#currency').options[selectedCurrencyIndex].value;
 
-	let rate = document.querySelector('.intrest-rate')
-	rate = rate.textContent
-	rate = parseFloat(rate)
+    let rate = document.querySelector('.interest-rate')
+    rate = rate.textContent
+    rate = parseFloat(rate)
 
-	let futureValue = calculate(principal, monthlyContribution, years, rate)
-	futureValue = formatCurrency(futureValue)
+    let futureValue = calculate(principal, monthlyContribution, years, rate)
+    futureValue = formatCurrency(futureValue)
 
-	let result = `Future Investment Value: $${futureValue}`
+    let currencyDropdown = document.querySelector('#currency');
+    let selectedCurrency = currencyDropdown.options[currencyDropdown.selectedIndex].value;
 
-	document.querySelector('.result').innerText = result
+    let result = `Future Investment Value: ${selectedCurrency}${futureValue}`;
+    document.querySelector('.result').innerText = result
 }
 
 function calculate(principal, monthlyContribution, years, rate) {
-	let annualRate = rate / 100
-	let futureValue = principal
+    let annualRate = rate / 100
+    let futureValue = principal
 
-	for (let i = 0; i < years; i++) {
-		futureValue = futureValue * (1 + annualRate) + (monthlyContribution * 12)
-	}
-	return futureValue
+    for (let i = 0; i < years; i++) {
+        futureValue = futureValue * (1 + annualRate) + (monthlyContribution * 12)
+    }
+
+    return futureValue
 }
 
 function reset() {
-	document.querySelector('.initial-investment').value = ''
-	document.querySelector('.monthly-contribution').value = ''
-	document.querySelector('.years').value = ''
-	document.querySelector('.intrest-rate').textContent = '1'
-	document.querySelector('.result').innerText = ''
+    document.querySelector('.initial-investment').value = ''
+    document.querySelector('.monthly-contribution').value = ''
+    document.querySelector('.years').value = ''
+    document.querySelector('.interest-rate').textContent = '1'
+    document.querySelector('.result').innerText = ''
 }
 
 function adjustRate(amount) {
-	let rateElement = document.querySelector('.intrest-rate')
-	let rate = parseInt(rateElement.textContent)
+    let rateElement = document.querySelector('.interest-rate')
+    let rate = parseInt(rateElement.textContent)
 
-	rate += amount
-	if (rate < 1) {
-		rate = 1
-	}
+    rate += amount
 
-	rateElement.textContent = rate.toString()
+    if (rate < 1) {
+        rate = 1
+    }
+
+    rateElement.textContent = rate.toString()
 }
 
 function formatCurrency(number) {
-	return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
-
+    return number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
 }

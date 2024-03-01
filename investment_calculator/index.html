@@ -7,31 +7,38 @@
   <body>
     <div class="calculator">
       <h1>Investment Calculator</h1>
-      <form class="calculator-form">
-        <label for="initialInvestiment">Initial Investiment</label>
-        <input type="number" class="initial-investment" placeholder="
-        Enter amount" required>
 
-        <label for="MonthlyContribution">Monthly Contribution</label>
-        <input type="number" class="monthly-contribution" placeholder="
-        Enter amount" required>
+      <form class="calculator-form">
+        <label for="initialInvestment">Initial Investment</label>
+        <input type="number" class="initial-investment" placeholder="Enter amount" required>
+
+        <label for="monthlyContribution">Monthly Contribution</label>
+        <input type="number" class="monthly-contribution" placeholder="Enter amount" required>
 
         <label for="years">Years to Grow</label>
-        <input type="number" class="years" placeholder="
-        Enter amount" required>
+        <input type="number" class="years" placeholder="Enter years" required>
 
-        <label for="intrestRate">Intrest Rate (%)</label>
-        <div class="intrest-rate-control">
+        <label for="interestRate">Interest Rate (%)</label>
+        <div class="interest-rate-control">
           <button type="button" class="adjust-rate decrease-rate">-</button>
-          <span class="intrest-rate">1</span>
+          <span class="interest-rate">1</span>
           <button type="button" class="adjust-rate increase-rate">+</button>
         </div>
 
+        <label for="currency" class="currency">Currency</label>
+        <select id="currency" class="currency">
+          <option value="$">USD ($)</option>
+          <option value="€">EUR (€)</option>
+          <option value="£">GBP (£)</option>
+        </select>
+       
+        <div class="button-group">
         <button type="submit">Calculate</button>
         <button type="button" class="reset-button">Reset</button>
-      </form>
-  
-    <h2 class="result"></h2
+        </form>
+    </div>
+
+      <h2 class="result"></h2>
     </div>
 
     <script src="index.js"></script>
